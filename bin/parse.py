@@ -59,11 +59,11 @@ class KeynoteHandler(xml.sax.ContentHandler):
 #        self.current_measurement, self.current_page
 
     def write_agent_meta(self):
-        csvUpdater = CsvUpdater('../lookups/agent_meta_data.csv',['instance_id'])
+        csvUpdater = CsvUpdater(os.path.normcase('../lookups/agent_meta_data.csv'),['instance_id'])
         csvUpdater.commit(self.agent_meta_data)
 
     def write_slot_meta(self):
-        csvUpdater = CsvUpdater('../lookups/slot_meta_data.csv',['page_seq','slot_id'])
+        csvUpdater = CsvUpdater(os.path.normcase('../lookups/slot_meta_data.csv'),['page_seq','slot_id'])
         csvUpdater.commit(self.slot_meta_data)
 
 

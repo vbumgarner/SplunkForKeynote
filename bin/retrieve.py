@@ -101,11 +101,11 @@ class KeynoteRetriever(object):
             sys.stderr.write( "Something went wrong writing the last file: " + self.lastfile + "\n" )
 
     def firstRun(self):
-        firstRunPath = '../local/firstRun'
+        firstRunPath = os.path.normcase('../local/firstRun')
         self.logger.debug("Checking firstRun")
         if not os.path.exists(firstRunPath):
-            args = [ 'cmd', 'python', '../../../../bin/fill_summary_index.py', '-app', 'Keynote', '-name', 'Keynote - summary - KBsec by hour', '-et', '-14day@day', '-lt', '@h', '-dedup', 'true', '-sk', self.sessionKey, '-sleep', '2', '-j', '5' ]
-            os.execv('../../../../bin/splunk', args)
+            args = [ 'cmd', 'python', os.path.normcase('../../../../bin/fill_summary_index.py'), '-app', 'Keynote', '-name', 'Keynote - summary - KBsec by hour', '-et', '-14day@day', '-lt', '@h', '-dedup', 'true', '-sk', self.sessionKey, '-sleep', '2', '-j', '5' ]
+            os.execv(os.path.normcase('../../../../bin/splunk'), args)
             first_run_file = open(firstRunPath, 'w')
             first_run_file.write(firstRunPath)
             first_run_file.close()
@@ -140,7 +140,7 @@ def main():
             logger.error( 'Keynote is not yet configured. Use the setup screen in the admin interface.' )
             return
     
-        retriever = KeynoteRetriever(sessionKey, user, password, '../local/' + user + '.last', logger)
+        retriever = KeynoteRetriever(sessionKey, user, password, os.path.normcase('../local/') + user + '.last', logger)
         filename = retriever.determineNextFile()
     
         while filename is not None:
