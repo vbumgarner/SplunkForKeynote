@@ -1,0 +1,123 @@
+[viewstates/flashtimeline%3Agij8adf3]
+access = read : [ * ]
+export = system
+owner = admin
+
+[viewstates/flashtimeline%3Agij8arcn]
+access = read : [ * ]
+export = system
+owner = admin
+
+[viewstates/flashtimeline%3Agiuh78vc]
+access = read : [ * ]
+export = system
+owner = admin
+
+[savedsearches/Keynote%20-%20summary%20-%20KBsec%20by%20hour]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = admin
+
+[viewstates/flashtimeline%3Agj4rkm5f]
+access = read : [ * ]
+export = system
+owner = admin
+
+[viewstates/flashtimeline%3Agj4rnank]
+access = read : [ * ]
+export = system
+owner = admin
+
+[viewstates/flashtimeline%3Agj4rq5p1]
+access = read : [ * ]
+export = system
+owner = admin
+
+[viewstates/flashtimeline%3Agj4ryp4b]
+access = read : [ * ]
+export = system
+owner = admin
+
+[viewstates/flashtimeline%3Agj4s1pfy]
+access = read : [ * ]
+export = system
+owner = admin
+
+[viewstates/charting%3Agj4s9n6p]
+access = read : [ * ]
+export = system
+owner = admin
+
+[viewstates/charting%3Agj4scf13]
+access = read : [ * ]
+export = system
+owner = admin
+
+[viewstates/charting%3Agj4sctvk]
+access = read : [ * ]
+export = system
+owner = admin
+
+[viewstates/flashtimeline%3Agj4sztuk]
+access = read : [ * ]
+export = system
+owner = admin
+
+[views/slotspages]
+access = read : [ * ], write : [ admin ]
+export = none
+owner = admin
+
+[views/requests]
+access = read : [ * ]
+export = none
+owner = admin
+
+[views/kbps2]
+access = read : [ * ]
+export = none
+owner = admin
+
+[views/errors2]
+access = read : [ * ]
+export = none
+owner = admin
+
+[views/availability]
+access = read : [ * ]
+export = none
+owner = admin
+
+[keynote/keynote]
+owner = admin
+version = 4.2.1
+
+[views/keynote_configured_measurements]
+access = read : [ * ], write : [ * ]
+export = none
+owner = admin
+version = 4.2.1
+
+[savedsearches/Current%20Keynote%20Measurements]
+access = read : [ * ], write : [ * ]
+export = none
+owner = admin
+version = 4.2.1
+
+[savedsearches/Instance%20count%20by%20City%2C%20Backbone%20Last%20Hour]
+access = read : [ * ], write : [ * ]
+export = none
+owner = admin
+version = 4.2.1
+
+[savedsearches/Number%20of%20Unique%20URLs]
+owner = admin
+version = 4.2.1
+
+[nav/default]
+owner = admin
+version = 4.2.1
+
+[views/Performance]
+owner = admin
+version = 4.2.1

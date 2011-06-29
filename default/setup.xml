@@ -1,0 +1,42 @@
+<setup>
+
+<block title="Welcome to the Keynote import application for Splunk">
+	<text>This application will download data from a Keynote customer account and load it in to splunk.</text>
+</block>
+
+
+<!--
+        <block title="Settings" endpoint="admin/script" entity=".%252Fbin%252Fretrieve.py">
+
+                <input field="enabled">
+                        <label>Enable</label>
+                        <type>bool</type>
+                </input>
+
+                <input field="interval">
+                        <label>Polling Interval (sec)</label>
+                        <type>text</type>
+                </input>
+-->
+		
+	
+        <block title="Settings" endpoint="admin/keynoteconfig/" entity="keynote">
+		<input field="user">
+			<label>User ID</label>
+			<type>text</type>
+		</input>
+		
+		<input field="password">
+			<label>Password</label>
+			<type>text</type>
+		</input>
+
+        </block>
+
+	<block title="After clicking Submit...">
+		<text>Data will start downloading within 5 minutes, and may take about an hour to index all data to the present, depending on the speed of your internet connection, the speed of the computer running splunk, and the amount of data points captured by Keynote.</text>
+		<text>Please be patient and wait for this form to complete before navigating away from this page.</text>
+	</block>
+
+</setup>
+

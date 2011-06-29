@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<form>
+  <label>Network Throughput</label>
+
+  <fieldset autoRun="true">
+      <input type="time">
+        <default>Last 2 days</default>
+      </input>
+  </fieldset>
+  <row>
+    <chart>
+      <searchString>index="keynote_summary" search_name="Keynote - summary - KBsec by hour" | timechart span=2h avg(KBsec) by city</searchString>
+      <title>by city</title>
+      <option name="charting.chart">area</option>
+      <option name="charting.legend.labelStyle.minimumWidth">200</option>
+      <option name="charting.legend.labelStyle.maximumWidth">200</option>
+    </chart>
+  </row>
+  <row>
+    <chart>
+      <searchString>index="keynote_summary" search_name="Keynote - summary - KBsec by hour" | timechart span=2h avg(KBsec) by backbone</searchString>
+      <title>by backbone</title>
+      <option name="charting.chart">area</option>
+      <option name="charting.legend.labelStyle.minimumWidth">200</option>
+      <option name="charting.legend.labelStyle.maximumWidth">200</option>
+    </chart>
+  </row>
+</form>

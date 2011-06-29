@@ -1,0 +1,44 @@
+<form class="formsearch">
+  <label>Performance</label>
+
+  <fieldset>
+       <input type="dropdown" token="slot_alias" searchWhenChanged="true">
+          <label>Transaction Name:</label>
+          <default>*</default>
+          <populatingSearch fieldForValue="slot_alias" fieldForLabel="slot_alias"> | inputlookup slot_meta_data_lookup | dedup slot_alias | fields slot_alias</populatingSearch>
+                  <choice value="*">all</choice>
+       </input>
+
+
+        <input type="time" searchWhenChanged="true"/>
+  </fieldset>
+
+  <row>
+    <html><center><h1>Transaction Performance</h1></center></html>
+  </row>
+
+  <row>
+      <chart>
+          <title>Transaction Performance by Page</title>
+          <searchTemplate>index="keynote" sourcetype="keynote_page" slot_alias="$slot_alias$" city="*" | fields page_alias, delta_msec |  eval delta_msec = round(delta_msec/1000, 0) | timechart span=5m avg(delta_msec) as "Total Measurement Time" by page_alias usenull=f | fillnull</searchTemplate>
+          <option name="charting.chart">area</option>
+      </chart>
+  </row>
+
+  <row>
+      <chart>
+          <title>Transaction Performance By City</title>
+          <searchTemplate>index="keynote" sourcetype="keynote_page" slot_alias="$slot_alias$" city="*" | fields page_alias, delta_msec, city |  eval delta_msec = round(delta_msec/1000, 0) | timechart span=5m avg(delta_msec) as "Total Measurement Time" by city usenull=f | fillnull</searchTemplate>
+          <option name="charting.chart">area</option>
+      </chart>
+  </row>
+
+  <row>
+      <chart>
+          <title>Top Errors</title>
+          <searchTemplate>index="keynote" sourcetype="keynote_detail" slot_alias="$slot_alias$" city="*" error_affects_availability="Y" | fields error_description | stats count by error_description</searchTemplate>
+          <option name="charting.chart">pie</option>
+      </chart>
+  </row>
+
+</form>

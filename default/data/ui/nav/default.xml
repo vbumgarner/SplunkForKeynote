@@ -1,0 +1,27 @@
+<nav>
+  <view name="kbps2" />
+  <view name="errors" />
+  <view name="Performance" />
+  <view name="availability" />
+  <view name="keynote_configured_measurements" />
+  <view name="requests" />
+  <view name="keynoteStatus" default="true" />
+  <collection label="Views">
+    <view source="unclassified" match="Keynote" />
+    <divider />
+    <view name="charting" />
+    <divider />
+    <a href="/manager/Keynote/data/ui/views">Manage Views</a>
+  </collection>
+  <collection label="Searches &amp; Reports">
+    <saved source="unclassified" match="Keynote" />
+    <collection label="Errors">
+      <saved source="unclassified" match="error" />
+    </collection>
+    <collection label="Inputs">
+      <saved source="unclassified" match="Inputs" />
+    </collection>
+    <saved source="unclassified" />
+    <divider />
+  </collection>
+</nav>

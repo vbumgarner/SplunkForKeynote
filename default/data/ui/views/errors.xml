@@ -1,0 +1,130 @@
+<view autoCancelInterval="90" isVisible="true" objectMode="SimpleDashboard" onunloadCancelJobs="true" refresh="-1" template="dashboard.html">
+  <label>Errors</label>
+  <module name="AccountBar" layoutPanel="appHeader"/>
+  <module name="AppBar" layoutPanel="navigationHeader"/>
+  <module name="Message" layoutPanel="messaging">
+    <param name="filter">*</param>
+    <param name="clearOnJobDispatch">False</param>
+    <param name="maxSize">1</param>
+  </module>
+  <module name="Message" layoutPanel="messaging">
+    <param name="filter">splunk.search.job</param>
+    <param name="clearOnJobDispatch">True</param>
+    <param name="maxSize">1</param>
+  </module>
+  <module name="TitleBar" layoutPanel="viewHeader">
+    <param name="actionsMenuFilter">dashboard</param>
+  </module>
+
+
+
+
+
+
+<module name="HiddenSearch" autoRun="True" layoutPanel="panel_row2_col1">
+  <param name="search"><![CDATA[index="keynote" sourcetype="keynote_detail" error_code | eval object_path=object_text | rex field=object_text "(?<object_path>.*?)\?.*" | eval URL = conn_string_text + object_path | bin _time span=1h | stats count by city, backbone, _time, error_description, error_affects_availability, URL]]></param>
+  <param name="earliest">-7d@h</param>
+
+
+        <module name="TimeRangePicker" layoutPanel="panel_row1_col1" >
+          <param name="searchWhenChanged">True</param>
+          <param name="default">last_24_hours</param>
+
+
+<module name="HiddenPostProcess" layoutPanel="panel_row2_col1_grp1">
+  <param name="search">stats sum(count) as count</param>
+     <module name="SingleValue">
+       <param name="field">count</param>
+       <param name="afterLabel"> errors</param>
+     </module>
+</module>
+
+
+  <module name="HiddenPostProcess" layoutPanel="panel_row3_col1" group="Distinct URLs with errors per hour by city" autoRun="True">
+    <param name="search">timechart span=1h dc(URL) as URLsWithErrors by city</param>
+    <param name="groupLabel">Distinct URLs with errors per hour by city</param>
+    <module name="ViewstateAdapter">
+      <param name="savedSearch">Keynote - errors graph of distinct URLs by city</param>
+      <module name="HiddenFieldPicker">
+        <param name="strictMode">True</param>
+        <module name="JobProgressIndicator">
+          <module name="EnablePreview">
+            <param name="enable">True</param>
+            <param name="display">False</param>
+            <module name="HiddenChartFormatter">
+              <module name="FlashChart">
+                <param name="width">100%</param>
+                <module name="ConvertToDrilldownSearch">
+                  <module name="ViewRedirector">
+                    <param name="viewTarget">flashtimeline</param>
+                  </module>
+                </module>
+              </module>
+              <module name="ViewRedirectorLink">
+                <param name="viewTarget">flashtimeline</param>
+              </module>
+            </module>
+          </module>
+        </module>
+      </module>
+    </module>
+  </module>
+  <module name="HiddenPostProcess" layoutPanel="panel_row4_col1" group="Error counts by description" autoRun="True">
+    <param name="search">stats sum(count) as count values(city) as Cities values(backbone) as Backbones by error_description error_affects_availability | rename error_affects_availability as "Affects availability" error_description as Description | sort -count</param>
+    <param name="groupLabel">Error counts by description</param>
+    <module name="ViewstateAdapter">
+      <param name="savedSearch">Keynote - errors by description</param>
+      <module name="HiddenFieldPicker">
+        <param name="strictMode">True</param>
+        <module name="JobProgressIndicator">
+          <module name="EnablePreview">
+            <param name="enable">True</param>
+            <param name="display">False</param>
+            <module name="SimpleResultsTable">
+              <param name="drilldown">row</param>
+              <param name="allowTransformedFieldSelect">True</param>
+              <module name="ConvertToDrilldownSearch">
+                <module name="ViewRedirector">
+                  <param name="viewTarget">flashtimeline</param>
+                </module>
+              </module>
+            </module>
+            <module name="ViewRedirectorLink">
+              <param name="viewTarget">flashtimeline</param>
+            </module>
+          </module>
+        </module>
+      </module>
+    </module>
+  </module>
+  <module name="HiddenPostProcess" layoutPanel="panel_row5_col1" group="Error counts by url" autoRun="True">
+    <param name="search">stats sum(count) as count values(error_description) as Descriptions values(city) as Cities values(backbone) as Backbones by URL | sort -count</param>
+    <param name="groupLabel">Error counts by url</param>
+    <module name="ViewstateAdapter">
+      <param name="savedSearch">Keynote - errors by url</param>
+      <module name="HiddenFieldPicker">
+        <param name="strictMode">True</param>
+        <module name="JobProgressIndicator">
+          <module name="EnablePreview">
+            <param name="enable">True</param>
+            <param name="display">False</param>
+            <module name="SimpleResultsTable">
+              <param name="drilldown">row</param>
+              <param name="allowTransformedFieldSelect">True</param>
+              <module name="ConvertToDrilldownSearch">
+                <module name="ViewRedirector">
+                  <param name="viewTarget">flashtimeline</param>
+                </module>
+              </module>
+            </module>
+            <module name="ViewRedirectorLink">
+              <param name="viewTarget">flashtimeline</param>
+            </module>
+          </module>
+        </module>
+      </module>
+    </module>
+  </module>
+  </module>
+  </module>
+</view>

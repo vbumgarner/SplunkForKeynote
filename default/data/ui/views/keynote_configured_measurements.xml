@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dashboard>
+  <label>Keynote Configured Measurements</label>
+  <row>
+    <chart>
+      <searchName>Keynote - Number of Unique URLs</searchName>
+      <title>Number of Unique URLs</title>
+    </chart>
+  </row>
+  <row>
+    <table>
+      <searchName>Keynote - Current Measurements</searchName>
+      <title>Current Measurements</title>
+    </table>
+    <table>
+      <searchName>Keynote - Instance count by City, Backbone Last Hour</searchName>
+      <title>Keynote Measurement Count </title>
+    </table>
+  </row>
+</dashboard>

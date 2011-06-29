@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dashboard>
+  <label>Import status</label>
+  <row>
+    <html>This dashboard gives a status of log retrieval. If the application has just been configured, it will take up to 5 minutes before logs begin to be imported. Or <a href="/manager/Keynote/control">restart splunk</a> to start the process sooner.</html>
+  </row>
+
+  <row>
+    <single>
+      <searchString>index="keynote" sourcetype="keynote_output" action=parsed filename="*zip" | head 1 | convert timeformat="%Y%m%d_%H%M.zip" mktime(filename) | eval z=strftime(now(),"%z") | eval diff=now()-(tonumber(substr(z,-2)) * 60)+(tonumber(substr(z,2,2)) * 3600)-now() | eval filename = filename-diff  | eval daysago = round((now()-filename)/(24*3600.0),1) | rangemap field=daysago low=0-1 elevated=2-4 default=severe | fields + daysago range</searchString>
+      <option name="beforeLabel">Most recent log imported is </option>
+      <option name="afterLabel"> days old</option>
+      <option name="classField">range</option>
+      <option name="field">daysago</option>
+    </single>
+    <single>
+      <searchString>index="keynote" sourcetype="keynote_output" action=parsed | head 1 | eval ago=now()-_time | rangemap field=ago low=0-1800 elevated=1801-7200 default=severe | fields + ago range</searchString>
+      <option name="beforeLabel">Last file downloaded </option>
+      <option name="afterLabel"> seconds ago</option>
+      <option name="classField">range</option>
+      <option name="field">ago</option>
+    </single>
+    <single>
+      <searchString>index="keynote" sourcetype="keynote_output" action=parsed | head 100 | stats count max(_time) as latest min(_time) as earliest | eval permin=(count-1)/( (latest-earliest)/3600.0 ) | table permin | rangemap field=permin severe=0-1 elevated=2-3 default=low</searchString>
+      <option name="beforeLabel">Import speed is approximately </option>
+      <option name="afterLabel"> files per hour.</option>
+      <option name="classField">range</option>
+      <option name="field">permin</option>
+    </single>
+  </row>
+  <row>
+    <table>
+      <searchString>|metadata index=keynote type=sourcetypes | fields + sourcetype totalCount</searchString>
+      <title>Total Events by type</title>
+    </table>
+  </row>
+
+  <row>
+    <table>
+      <searchName>Keynote - last ten logs imported</searchName>
+      <title>Last ten logs imported</title>
+    </table>
+  </row>
+  <row>
+    <event>
+      <searchString>index="keynote" sourcetype="keynote_output" error | head 10</searchString>
+      <title>Last ten errors</title>
+      <earliestTime>-1d</earliestTime>
+    </event>
+  </row>
+</dashboard>
