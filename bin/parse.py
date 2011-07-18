@@ -1,6 +1,7 @@
 import xml.sax
 import sys
 import csv
+import os
 from csvUpdater import CsvUpdater
 
 try:
