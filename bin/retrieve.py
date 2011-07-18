@@ -126,7 +126,7 @@ def main():
         #get the auth
         sessionKey = sys.stdin.readline()
     
-        namespace = re.findall('.*[\\/](\w+)[\\/]bin',sys.path[0])[0]
+        namespace = re.findall(r".*[\\/]([^\\/]+)[\\/]bin",sys.path[0])[0]
     
         try:
             conf = bundle.getConf('keynote', sessionKey=sessionKey, namespace=namespace, owner='admin') #extract this from sys.path[0], unless there's a better way
@@ -192,4 +192,3 @@ def setup_logging(n):
 
 if __name__ == '__main__':
     main()
-
